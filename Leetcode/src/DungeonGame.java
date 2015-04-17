@@ -25,11 +25,24 @@ public class DungeonGame {
                     mostNegative[idxRow][idxCol]=(sumOfPath[idxRow][idxCol]<mostNegative[idxRow][idxCol-1])?sumOfPath[idxRow][idxCol]:mostNegative[idxRow][idxCol-1];
 
                 }
-                // bug #3 here: This bug makes the problem hard - Only use mostNegative to choose the path is not enough. case: [[0,0,0],[1,1,-1]]
-                else {
+                else if (mostNegative[idxRow-1][idxCol]>mostNegative[idxRow][idxCol-1]) {
                     sumOfPath[idxRow][idxCol]=sumOfPath[idxRow-1][idxCol]+dungeon[idxRow][idxCol];
                     mostNegative[idxRow][idxCol]=(sumOfPath[idxRow][idxCol]<mostNegative[idxRow-1][idxCol])?sumOfPath[idxRow][idxCol]:mostNegative[idxRow-1][idxCol];
                 }
+                else { // bug #3 here: This bug makes the problem hard - Only use mostNegative to choose the path is not enough. case: [[0,0,0],[1,1,-1]]
+                	// when mostNegative is the same, need use sumOfPath to choose path
+                	// UPDATE: bug #3 fixed, but still does NOT work. Actually this is not a good DP problem. Because the previous subproblem will change
+                	// with the change of the later element. NEED GIVE UP THIS METHOD AND RETHINK
+                	// It looks so much like DP problem which makes it very hard.!
+                	if (sumOfPath[idxRow-1][idxCol]<sumOfPath[idxRow][idxCol-1]) {
+                		sumOfPath[idxRow][idxCol]=sumOfPath[idxRow][idxCol-1]+dungeon[idxRow][idxCol];
+                	}
+                	else {
+                		sumOfPath[idxRow][idxCol]=sumOfPath[idxRow-1][idxCol]+dungeon[idxRow][idxCol];
+                	}
+                	mostNegative[idxRow][idxCol]=(sumOfPath[idxRow][idxCol]<mostNegative[idxRow-1][idxCol])?sumOfPath[idxRow][idxCol]:mostNegative[idxRow-1][idxCol];                	
+                }
+                
             }
 
         }

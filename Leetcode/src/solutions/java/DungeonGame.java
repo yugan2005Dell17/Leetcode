@@ -1,3 +1,4 @@
+package solutions.java;
 
 public class DungeonGame {
 	

@@ -15,7 +15,8 @@ public class PalindromePartitioningII3 {
          * I almost gave up the DP method, but the hint makes me dig deeper.
          */
         
-        ArrayList<Integer>[] minCutList =(ArrayList<Integer>[]) new ArrayList[s.length()];
+        @SuppressWarnings("unchecked")
+		ArrayList<Integer>[] minCutList =(ArrayList<Integer>[]) new ArrayList[s.length()];
         int[][] palindromeMatrix = new int[s.length()][s.length()];
         
         for (int i=0; i<minCutList.length; i++){
@@ -33,7 +34,11 @@ public class PalindromePartitioningII3 {
             else {
             	FindMinCut: for(int j=0; j<s.length()-1; j++){
         			for (int k=0; k<minCutList[j].size(); k++){
-        				if (((minCutList[j].get(k)+1)<=i) && isPalindrome(s, minCutList[j].get(k)+1, i, palindromeMatrix)) {
+        				if (isPalindrome(s, minCutList[j].get(k)+1, i, palindromeMatrix)) {
+        					/*
+        					 * No need to check ((minCutList[j].get(k)+1)<=i), because based on the logic
+        					 * All the indexes saved in the minCutList[] are definitely less than i
+        					 */
         					minCutList[j+1].add(i);
         					result[i]=j+1;
         					break FindMinCut;
@@ -54,7 +59,7 @@ public class PalindromePartitioningII3 {
     	boolean result=true;
     	if (s.charAt(i)!=s.charAt(j)) result=false;
     	else {
-        	if ((i-j)>2) {
+        	if ((j-i)>2) {
         		result = result && isPalindrome(s,i+1,j-1,palindromeMatrix);
         	}
         	/*

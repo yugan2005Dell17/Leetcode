@@ -33,7 +33,7 @@ public class PalindromePartitioningII3 {
             else {
             	FindMinCut: for(int j=0; j<s.length()-1; j++){
         			for (int k=0; k<minCutList[j].size(); k++){
-        				if (isPalindrome(s, minCutList[j].get(k)+1, i, palindromeMatrix)) {
+        				if (((minCutList[j].get(k)+1)<=i) && isPalindrome(s, minCutList[j].get(k)+1, i, palindromeMatrix)) {
         					minCutList[j+1].add(i);
         					result[i]=j+1;
         					break FindMinCut;

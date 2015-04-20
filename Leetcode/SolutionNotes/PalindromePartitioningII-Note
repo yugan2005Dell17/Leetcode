@@ -1,0 +1,19 @@
+I gave up on DP for this problem, but DP is the only possible solution for this problem!
+
+1:Normally when the problem ask for
+	1: Best solution
+	2: Don't require to enumerate all possible combinations
+It is a indication for the DP method
+
+2:Using DP is essentially increase speed by using extra spaces. It should
+	1: Record some sort of status of previous run to change one level of O(n) -> O(1)
+	2: Remember the total complexity of DP normally is greater than O(n), because the construction of DP implies running from the sub-problems to the original problem.
+	3: I thought my earlier version of DP solution is on the complexity of O(n2), which is wrong. I forget that the isPalindrome() inside the two for loop itself is a O(n) complexity.
+
+3:The really challenge point for this problem is using DP method to change the isPalindrome() function from O(n) to O(1)
+
+Overall, this is a really good problem for improving the DP skill.
+
+A side note for the creating the minCutList[], this should be a minor improvement, because every time the finding of the best solution will always starting from minimum number to the increasing order. But itself doesn't reduce the complexity order.
+
+The improvement of isPalindrome() is applicable to the Palindrome Partitioning - I problem. I don't want to do that problem again. Maybe next time.

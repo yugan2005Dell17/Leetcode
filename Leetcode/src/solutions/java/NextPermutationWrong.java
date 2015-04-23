@@ -1,6 +1,6 @@
 package solutions.java;
 
-public class NextPermutation {
+public class NextPermutationWrong {
 	
     public void nextPermutation(int[] num) {
         if (num==null||num.length==0 || num.length==1) return;
@@ -89,7 +89,7 @@ public class NextPermutation {
 
 
 	public static void main(String[] args) {
-		NextPermutation test = new NextPermutation();
+		NextPermutationWrong test = new NextPermutationWrong();
 //		int[] num = {1,2,3};
 //		int[] num = {1,3,2};
 //		int[] num = {2,3,1}; 

@@ -42,6 +42,10 @@ public class BinaryTree {
 		return size;
 	}
 	
+	public TreeNode root(){
+		return root;
+	}
+	
 	public String toString(){
 		String output="{";
 		Queue<TreeNode> treeNodes = new LinkedList<>(); // cannot use ArrayDeque, because I need add null

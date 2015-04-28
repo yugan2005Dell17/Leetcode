@@ -1,6 +1,7 @@
 package solutions.java;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -9,33 +10,34 @@ public class ThreeSumIV {
 	
     public List<List<Integer>> threeSum(int[] num) {
     	List<List<Integer>> result = new ArrayList<List<Integer>>();
-    	HashSet<String> storedResult = new HashSet<>();
     	
     	if (num==null||num.length<=2) return result;
     	randomrize(num);
-    	quickSort(num, 0, num.length-1);
+    	Arrays.sort(num);
     	
     	for (int i=0; i<num.length-2;i++){
     		for (List<Integer> twoSumResult: twoSum(num, i+1, num.length-1, -1*num[i])){
     			twoSumResult.add(0, num[i]);
-    			String hashSetString = "";
-    			for (int resultInt:twoSumResult){
-    				hashSetString += resultInt;
-    			}
-    			if (!storedResult.contains(hashSetString))	{
-    				result.add(twoSumResult);
-    				storedResult.add(hashSetString);
-    			}
+    			result.add(twoSumResult);
     		}
     	}
     	
-    	return result;
+    	HashSet<List<Integer>> storedResult = new HashSet<>();
+    	List<List<Integer>> uniqueResult = new ArrayList<List<Integer>>();
+
+    	for (List<Integer> unique:result){
+    		if (storedResult.add(unique)) {
+    			uniqueResult.add(unique);
+    		}    		
+    	}
+
+    	
+    	return uniqueResult;
     }
     	
 
 	private List<List<Integer>> twoSum(int[] num, int i, int j, int target) {
 		List<List<Integer>> result = new ArrayList<>();
-    	HashSet<String> storedResult = new HashSet<>();
 		while (i<j) {
 			if (num[i]+num[j]>target) {
 				j--;
@@ -47,14 +49,7 @@ public class ThreeSumIV {
 				List<Integer> curResult = new ArrayList<>();
 				curResult.add(num[i]);
 				curResult.add(num[j]);
-				String hashSetString = "";
-    			for (int resultInt:curResult){
-    				hashSetString += resultInt;
-    			}
-    			if (!storedResult.contains(hashSetString))	{
-    				result.add(curResult);
-    				storedResult.add(hashSetString);
-    			}
+				result.add(curResult);
 				j--;
 				i++;
 			}
@@ -79,42 +74,6 @@ public class ThreeSumIV {
     		swap(num, i, j);
     	}
     }
-	
-    private void quickSort(int[] num, int lo, int hi) {
-    	if (lo>=hi) return;
-    	
-    	int p = partition(num, lo, hi);
-    	quickSort(num, lo, p-1);
-    	quickSort(num, p+1, hi);
-    	
-	}
-    
-    private int partition(int[] num, int lo, int hi) {
-    	int head, tail;
-    	head = lo+1;
-    	tail = hi;
-    	while (true){
-    		while (num[head]<=num[lo]) { // find the first head with num[head]>num[lo]
-    			head++;
-    			if (head>hi){// all elements are <= num[lo]
-    				swap(num, lo, hi);
-    				return hi;    				
-    			}
-    		}
-    		while (num[tail]>num[lo]) { // find the first tail with num[tail] <= num[lo]
-    			tail--; // tail will not be less than lo, because num[lo]==num[lo]
-    		}
-    		if (head<tail) { // 
-    			swap(num, head, tail); // now [i+1,...head] <= lo < [tail,...hi]    			
-    		}
-    		else {
-    			break; //the first time head>=tail, means it crosses
-    			// and at this time num[tail] <= num[lo]
-    		}
-    	}
-    	swap(num, lo, tail);
-    	return tail;
-	}
 
 	private void swap(int[] num, int i, int j){
     	int temp = num[i];

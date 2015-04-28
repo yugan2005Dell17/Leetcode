@@ -28,11 +28,11 @@ public class ThreeSumII {
 		List<List<Integer>> result = new ArrayList<>();
 		while (i<j) {
 			if (num[i]+num[j]>target) {
-				while (j>i && num[j-1]==num[j]) j--;
+//				while (j>i && num[j-1]==num[j]) j--;//Don't need
 				j--;
 			}
 			else if (num[i]+num[j]<target) {
-				while (j>i && num[i+1]==num[i]) i++;
+//				while (j>i && num[i+1]==num[i]) i++; //Don't need
 				i++;
 			}
 			else {
@@ -113,8 +113,8 @@ public class ThreeSumII {
 	public static void main(String[] args) {
 		
 		ThreeSumII test = new ThreeSumII();
-		int[] input = {0,0,0};
-//		int[] input = {-2,0,0,2,2};
+//		int[] input = {0,0,0};
+		int[] input = {-2,0,0,2,2};
 
 		List<List<Integer>> result = test.threeSum(input);
 		String output= "[ ";

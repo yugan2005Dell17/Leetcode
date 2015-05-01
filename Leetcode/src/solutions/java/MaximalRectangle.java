@@ -9,7 +9,11 @@ public class MaximalRectangle {
         int row = matrix.length;
         int col = matrix[0].length;
         int[][] upBound= new int[row][col];
-        ArrayList<Integer>[][] leftBound =(ArrayList<Integer>[][]) new ArrayList<>()[][];
+        @SuppressWarnings("unchecked")
+		ArrayList<Integer>[][] leftBound =(ArrayList<Integer>[][]) new ArrayList[row][col];
+        if (matrix[0][0]=='0') {
+        	upBound[0][0]=notAva
+        }
         
     }
  

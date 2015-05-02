@@ -26,60 +26,57 @@ public class MaximalRectangle {
         			upBound[i][j]=0;        			
         		}
         		else {
-                	upBound[i][j]=(upBound[i][j-1]==0? 1: upBound[i][j-1]+1);
+                	upBound[i][j]=(upBound[i-1][j]==0? 1: upBound[i-1][j]+1);
         		}
         	}
         }
         
-        for (int j=0; j<col; j++){
-        	int curColMax = findColMax(upBound);
+        for (int i=0; i<row; i++){
+        	int curRowMax = findRowMax(upBound[i]);
+        	maxArea = curRowMax>maxArea? curRowMax: maxArea;        	
         }
+        return maxArea;
     }
  
-	private int findColMax(int[] upBound) {
+	private int findRowMax(int[] rowUpBound) {
 		/*
 		 * This is finding the max rectangle in Histogram problem
-		 * But remember need first transfer the upBound into the actual length
 		 */
-		Integer[] A = new Integer[upBound.size()];
-		A=upBound.toArray(A);
-		for (int i=0; i<A.length; i++){
-			A[i]=curCol-A[i]+1;
-		}
+
 		//scan right
-		int[] boundToLeft = new int[A.length];
+		int[] boundToLeft = new int[rowUpBound.length];
 		int max=0;
 		boundToLeft[0]=0;
-		for (int i=1; i<A.length; i++){
-			if (A[i]>A[i-1]) {
+		for (int i=1; i<rowUpBound.length; i++){
+			if (rowUpBound[i]>rowUpBound[i-1]) {
 				boundToLeft[i] = i;
 			}
 			else {
 				int curBoundToLeft=boundToLeft[i-1];
-				while(curBoundToLeft>0 && A[i]<=A[curBoundToLeft-1]) {
+				while(curBoundToLeft>0 && rowUpBound[i]<=rowUpBound[curBoundToLeft-1]) {
 					curBoundToLeft=boundToLeft[curBoundToLeft-1];
 				}
 				boundToLeft[i]=curBoundToLeft;
 			}
 		}
 		//scan left
-		int[] boundToRight = new int[A.length];
-		boundToRight[A.length-1]=A.length-1;
-		for (int i=A.length-2; i>=0; i--){
-			if (A[i]>A[i+1]) {
+		int[] boundToRight = new int[rowUpBound.length];
+		boundToRight[rowUpBound.length-1]=rowUpBound.length-1;
+		for (int i=rowUpBound.length-2; i>=0; i--){
+			if (rowUpBound[i]>rowUpBound[i+1]) {
 				boundToRight[i] = i;
 			}
 			else {
 				int curBoundToRight=boundToRight[i+1];
-				while(curBoundToRight<A.length-1 && A[i]<=A[curBoundToRight+1]) {
+				while(curBoundToRight<rowUpBound.length-1 && rowUpBound[i]<=rowUpBound[curBoundToRight+1]) {
 					curBoundToRight=boundToRight[curBoundToRight+1];
 				}
 				boundToRight[i]=curBoundToRight;
 			}
 		}
 		// Combine
-		for (int i=0; i<A.length; i++){
-			int curArea = (boundToRight[i]-boundToLeft[i]+1)*A[i];
+		for (int i=0; i<rowUpBound.length; i++){
+			int curArea = (boundToRight[i]-boundToLeft[i]+1)*rowUpBound[i];
 			max = curArea>max? curArea: max;
 		}
 		return max;

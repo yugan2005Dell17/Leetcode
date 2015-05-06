@@ -12,7 +12,7 @@ public class InterleavingStringDP {
         /*
          * This matrix means whether s3.substring(0, i+j) can be interleaved by s1.substring(0, i)
          * and s2.substring(0, j); But note that the indexes all shifted by one, to cover base case canBeInterleaved[0][0]
-         * which means use 0 char from s1 nad 0 char from s2 to make 0 char of s3.
+         * which means use 0 char from s1 and 0 char from s2 to make 0 char of s3.
          */
         canBeInterleaved[0][0]=true;
         for (int i=1; i<=s1Len; i++){

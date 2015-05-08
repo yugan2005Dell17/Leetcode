@@ -7,6 +7,12 @@ public class MiniDuckSimulator {
 		
 		myMallarDuck.fly();
 		myMallarDuck.quake();
+		
+		ModelDuck myModelDuck = new ModelDuck();
+		myModelDuck.fly();
+		myModelDuck.quake();
+		myModelDuck.setFlyBehavior(new FlyRocketPowered());
+		myModelDuck.fly();
 
 	}
 

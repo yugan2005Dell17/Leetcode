@@ -18,4 +18,12 @@ public abstract class Duck {
 		quakeBehavior.quak();
 	}
 
+	public void setFlyBehavior(Flyable flyBehavior) {
+		this.flyBehavior = flyBehavior;
+	}
+
+	public void setQuakeBehavior(Quakeable quakeBehavior) {
+		this.quakeBehavior = quakeBehavior;
+	}
+
 }

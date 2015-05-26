@@ -20,17 +20,20 @@ public class RestoreIPAddresses {
 
 
         if (depth==3) {
+        	if (s.charAt(startIdx)=='0' && s.length()-startIdx>1) return; // handle bug for 0
             if (curStrLen>0 && curStrLen<=3 && Integer.parseInt(s.substring(startIdx, s.length()))<=255) {
                 String newIpAddress=ipAddress+s.substring(startIdx, s.length());
                 result.add(newIpAddress);
             }
             else return;
         }
+        
+        if (s.charAt(startIdx)=='0') dfsIpAddress(result, s, depth+1, ipAddress+"0."); // handle bug for 0
         int curSegNum=4-depth;
         int minLen = Math.max(curStrLen-3*(curSegNum-1),1);
         int maxLen = Math.min(curStrLen-curSegNum+1,3);
         for (int i=minLen; i<=maxLen; i++){
-            if (Integer.parseInt(s.substring(startIdx, startIdx+i))<=255) {
+            if (Integer.parseInt(s.substring(startIdx, startIdx+i))<=255 && Integer.parseInt(s.substring(startIdx, startIdx+i))>0) {
                 String newIpAddress=ipAddress+s.substring(startIdx, startIdx+i)+".";
                 dfsIpAddress(result, s, depth+1, newIpAddress);
             }

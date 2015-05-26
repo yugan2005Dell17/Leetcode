@@ -25,15 +25,19 @@ public class RestoreIPAddresses {
                 String newIpAddress=ipAddress+s.substring(startIdx, s.length());
                 result.add(newIpAddress);
             }
-            else return;
+            return;
         }
         
-        if (s.charAt(startIdx)=='0') dfsIpAddress(result, s, depth+1, ipAddress+"0."); // handle bug for 0
+        if (s.charAt(startIdx)=='0') {
+        	dfsIpAddress(result, s, depth+1, ipAddress+"0."); // handle bug for 0
+        	return;
+        }
         int curSegNum=4-depth;
         int minLen = Math.max(curStrLen-3*(curSegNum-1),1);
         int maxLen = Math.min(curStrLen-curSegNum+1,3);
         for (int i=minLen; i<=maxLen; i++){
-            if (Integer.parseInt(s.substring(startIdx, startIdx+i))<=255 && Integer.parseInt(s.substring(startIdx, startIdx+i))>0) {
+            if (Integer.parseInt(s.substring(startIdx, startIdx+i))<=255 
+            		&& Integer.parseInt(s.substring(startIdx, startIdx+i))>0) {
                 String newIpAddress=ipAddress+s.substring(startIdx, startIdx+i)+".";
                 dfsIpAddress(result, s, depth+1, newIpAddress);
             }

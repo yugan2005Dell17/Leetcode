@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ValidNumber {
+	
+	/* Note - Cases that I missed:
+	 * 1: single ".", "e", ...
+	 * 2: empty input
+	 * 3: This is not a mistake. OJ think ". 1" is not allowed. don't need take the middle space off
+	 * 4: '+'/'-' should not be the last
+	 * 5: need at least one number
+	 * 6: "46.e3" is acceptable
+	 */
 
 	static Character[] numChar;
 	static final ArrayList<Character> NUM_CHAR;
